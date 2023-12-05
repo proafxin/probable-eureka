@@ -1,0 +1,87 @@
+\documentclass{article}
+
+\usepackage{amsmath, amsthm, amssymb, amsfonts}
+
+\title{Some Random Things}
+\author{Masum Billal}
+
+\newtheorem{problem}{Problem}
+
+\theoremstyle{definition}
+\newtheorem*{solution}{Solution}
+
+\begin{document}
+	\maketitle
+
+	\section{12.06.2023}
+	\begin{problem}
+		Let $X$ be a metric space and $A,B$ be two separated subsets. For $a\in A, b\in B$, define
+			\begin{align*}
+				f(t)
+					& = ta+(1-t)b
+			\end{align*}
+		for a real number $t$. Prove that there is a $t\in(0,1)$ such that $f(t)\not\in A\cup B$.
+	\end{problem}
+
+	\begin{solution}
+		Consider all pairs $(a,b)$ such that $a\in A$ and $b\in B$. By definition, $A\cap \bar{B}=\varnothing$ and $\bar{A}\cap B=\varnothing$ where $\bar{X}$ is the closure of $X$. Take $(a,b)=(p,q)$ such that $d(p,q)$ is minimum. Let $N_{p}$ and $N_{q}$ be the neighborhoods of $p$ and $q$ respectively and $r_{p}$ and $r_{q}$ be the radius of $N_{p}$ and $N_{q}$ respectively. Due to separation of $N_{p}$ and $N_{q}$, $d(p,q)>r_{p}+r_{q}$. Note that $f(t)$ represents the line joining $p$ and $q$ as $t$ varies. Since $r_{p}+r_{q}<d(p,q)$, there exists positive real number $t$ such that
+			\begin{align*}
+				\frac{r_{p}}{d(p,q)}
+					& < t<1-\dfrac{r_{q}}{d(p,q)}
+			\end{align*}
+		For such $t$, $f(t)\not\in A$ and $f(t)\not\in B$. Thus, $f(t)\not\in A\cup B$.
+	\end{solution}
+	\subsection{Prime Number Theorem}
+	Let $f$ any arithmetic function. Consider it's partial sum
+		\begin{align*}
+			F(x)
+				& = \sum_{n\leq x}f(n)
+		\end{align*}
+	We want to estimate this sum by reducing $x$ to a lower number. A good way to do that would be to consider multiplicative $f$ so that for $p\nmid m$, $f(p^{e}m)=f(p^{e})f(m)$. Then
+		\begin{align*}
+			F(x)
+				& = \sum_{\substack{n\leq x\\p\nmid x}}f(n)+\sum_{\substack{n\leq x\\p\mid x}}f(n)\\
+				& = \sum_{\substack{n\leq x\\p^{i}\|n}}f(n)\\
+				& = \sum_{\substack{p^{i}\leq x\\p^{i}\|n}}f(p^{i})f(n/p^{i})\\
+				& = \sum_{p^{i}\leq x}f(p^{i})\sum_{\substack{n\leq x/p^{i}\\p\nmid n}}f(n)\\
+				& = \sum_{p^{i}\leq x}f(p^{i})\left(F(x/p^{i})-\sum_{\substack{n\leq x/p^{i}\\p\mid n}}f(n)\right)
+		\end{align*}
+	Letting
+		\begin{align*}
+			S_{p}^{f}(x)
+				& = \sum_{\substack{n\leq x\\p\nmid n}}f(n)\\
+			T_{p}^{f}(x)
+				& = \sum_{\substack{n\leq x\\p\mid n}}f(n)\\
+				& = \sum_{p^{i}\leq x}f(p^{i})S_{p}^{f}(x/p^{i})
+		\end{align*}
+	we have $F(x)=S_{p}^{f}(x)+T_{p}^{f}(x)$ for any prime $p\leq x$. So, $F$ can be recursively calculated using
+		\begin{align*}
+			F(x)
+				& = \sum_{p^{i}\leq x}f(p^{i})S_{p}^{f}(x/p^{i})
+		\end{align*}
+	Notice that the choice of $p$ is free. So letting $p$ run for all $p\leq x$,
+		\begin{align*}
+			\pi(x)F(x)
+				& = \sum_{p\leq x}\sum_{i=0}^{\lfloor\log_{p}{x}\rfloor}f(p^{i})S_{p}^{f}(x/p^{i})
+		\end{align*}
+	Choosing $f(n)=\tau(n)$, the number of divisors of $n$, we know that
+		\begin{align*}
+			\sum_{n\leq x}\tau(n)
+				& = x\log{x}+(2\gamma-1)x+O(\sqrt{x})
+		\end{align*}
+	So, $F(x)\sim x\log{x}$. Since, $\tau(p^{i})=i+1$, if we can show somehow that
+		\begin{align*}
+			\sum_{p\leq x}\sum_{i=0}^{\lfloor\log_{p}{x}\rfloor}(i+1)S_{p}^{\tau}(x/p^{i})
+				& \sim x^{2}
+		\end{align*}
+	then we would have
+		\begin{align*}
+			\pi(x)F(x)
+				& \sim x^{2}
+		\end{align*}
+	Since $\pi(x)F(x)\sim \pi(x)x\log{x}$, this would give us
+		\begin{align*}
+			\pi(x)
+				& \sim\dfrac{x}{\log{x}}
+		\end{align*}
+\end{document}
